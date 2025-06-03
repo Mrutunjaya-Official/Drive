@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Notes Download - Fully Functional Unique Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<style>
+  :root {
+    --white: #fff;
+    --black: #000;
+    --gray-light: #f5f5f7;
+    --gray-medium: #c6c6c8;
+    --gray-dark: #1c1c1e;
+    --gray-darker: #2c2c2e;
+    --blue: #007aff;
+    --blue-dark: #0051a8;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --nav-height: 56px;
+    --transition-speed: 0.3s;
+    --border-radius: 18px;
+    --menu-bg-light: #e6f0ff;
+    --menu-bg-dark: #003366;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body,html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: var(--font-stack);
+    background: var(--gray-light);
+    color: var(--gray-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    transition: background-color 0.4s, color 0.4s;
+    user-select: none;
+  }
+  body.dark-mode {
+    background: var(--gray-darker);
+    color: var(--gray-light);
+  }
+  a {
+    color: var(--blue);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--transition-speed);
+    user-select:none;
+  }
+  a:hover, a:focus {
+    color: var(--blue-dark);
+    outline: none;
+  }
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--gray-medium);
+    z-index: 1010;
+    user-select: none;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.07);
+    transition: background-color 0.4s;
+  }
+  body.dark-mode header {
+    background: var(--gray-darker);
+    border-color: var(--gray-dark);
+    box-shadow: 0 2px 6px #000a;
+  }
+  header .left-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  header .logo-container {
+    display: flex;
+    align-items: center;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 1.3rem;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: color var(--transition-speed);
+  }
+  header .logo-container .material-symbols-outlined {
+    font-size: 28px;
+  }
+  header .logo-container:hover, header .logo-container:focus {
+    color: var(--blue-dark);
+    outline: none;
+  }
+
+  /* New right buttons container */
+  header .right-buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  header .btn-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--blue);
+    font-size: 26px;
+    padding: 4px;
+    border-radius: 8px;
+    transition: background-color 0.25s, color 0.25s;
+    user-select:none;
+  }
+  header .btn-icon:hover, header .btn-icon:focus {
+    background-color: var(--menu-bg-light);
+    color: var(--blue-dark);
+    outline: none;
+  }
+  body.dark-mode header .btn-icon {
+    color: var(--gray-light);
+  }
+  body.dark-mode header .btn-icon:hover,
+  body.dark-mode header .btn-icon:focus {
+    background-color: var(--menu-bg-dark);
+    color: var(--blue);
+  }
+
+  #theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    color: var(--blue);
+    transition: color var(--transition-speed);
+    user-select:none;
+  }
+  body.dark-mode #theme-toggle {
+    color: var(--gray-light);
+  }
+  #theme-toggle:hover, #theme-toggle:focus {
+    outline: none;
+  }
+
+  /* UNIQUE TOP NAVIGATION - pill style with sliding highlight */
+  nav#site-nav {
+    position: fixed;
+    top: var(--nav-height);
+    left: 50%;
+    transform: translateX(-50%);
+    height: var(--nav-height);
+    background: var(--menu-bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 16px rgb(0 0 0 / 0.1);
+    display: flex;
+    gap: 12px;
+    padding: 6px 12px;
+    z-index: 1005;
+    user-select:none;
+    transition: background-color 0.4s;
+    max-width: 96vw;
+  }
+  body.dark-mode nav#site-nav {
+    background: var(--menu-bg-dark);
+    box-shadow: 0 10px 20px #000b;
+  }
+  nav#site-nav a {
+    position: relative;
+    padding: 0 18px;
+    font-weight: 600;
+    font-size: 1rem;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 20px;
+    user-select:none;
+    color: var(--blue);
+    transition: color var(--transition-speed);
+    z-index: 2;
+  }
+  body.dark-mode nav#site-nav a {
+    color: var(--gray-light);
+  }
+  nav#site-nav a:hover, nav#site-nav a:focus {
+    outline: none;
+    color: var(--blue-dark);
+  }
+  nav#site-nav a.active {
+    color: var(--white);
+    font-weight: 700;
+    z-index: 3;
+  }
+  /* Sliding highlight */
+  #nav-highlight {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    border-radius: 20px;
+    background: var(--blue);
+    transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  body.dark-mode #nav-highlight {
+    background: var(--blue);
+  }
+
+  main {
+    margin: calc(var(--nav-height) * 2 + 12px) 16px 72px;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 24px 20px 36px;
+    box-shadow: 0 1px 14px rgb(0 0 0 / 0.12);
+    min-height: calc(100vh - calc(var(--nav-height) * 2 + 100px));
+    user-select: text;
+    overflow-y: auto;
+    transition: background-color 0.4s, color 0.4s;
+  }
+  body.dark-mode main {
+    background: var(--gray-darker);
+    color: var(--gray-light);
+    box-shadow: 0 1px 22px #000a;
+  }
+
+  /* NOTES */
+  .note-section {
+    margin-bottom: 36px;
+  }
+  .note-section h3 {
+    margin: 0 0 14px 0;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--gray-dark);
+    border-bottom: 2px solid var(--menu-bg-dark);
+    padding-bottom: 8px;
+    user-select:none;
+  }
+  body.dark-mode .note-section h3 {
+    color: var(--gray-light);
+    border-color: var(--menu-bg-light);
+  }
+  .section-notes-list {
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+  .section-notes-list li {
+    padding: 14px 12px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--gray-dark);
+    cursor: pointer;
+    transition: background-color 0.25s;
+    user-select:none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  body.dark-mode .section-notes-list li {
+    color: var(--gray-light);
+  }
+  .section-notes-list li:hover,
+  .section-notes-list li:focus-within {
+    background: var(--menu-bg-light);
+    outline: none;
+  }
+  body.dark-mode .section-notes-list li:hover,
+  body.dark-mode .section-notes-list li:focus-within {
+    background: var(--menu-bg-dark);
+  }
+  .section-notes-list li a {
+    color: inherit;
+    flex-grow: 1;
+    outline: none;
+  }
+
+  /* DOWNLOAD PAGE */
+  #download-page {
+    display: none;
+    user-select:none;
+    text-align: center;
+  }
+  #download-page h2 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 14px;
+    user-select:none;
+  }
+  body.dark-mode #download-page h2 {
+    color: var(--blue);
+  }
+  #download-page p {
+    font-size: 1.1rem;
+    color: var(--gray-dark);
+    margin-bottom: 14px;
+    user-select:text;
+  }
+  body.dark-mode #download-page p {
+    color: var(--gray-light);
+  }
+  #download-progress-info {
+    font-size: 1rem;
+    color: var(--gray-medium);
+    margin-bottom: 28px;
+    min-height: 1.4em;
+  }
+  body.dark-mode #download-progress-info {
+    color: var(--gray-light);
+  }
+  #download-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  #download-btn {
+    flex-grow: 1;
+    min-width: 180px;
+    max-width: 310px;
+    background: var(--blue);
+    border: none;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 16px 0;
+    border-radius: 32px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select:none;
+  }
+  #download-btn:disabled {
+    background: var(--gray-medium);
+    cursor: not-allowed;
+    color: var(--gray-light);
+  }
+  #download-btn:not(:disabled):hover,
+  #download-btn:not(:disabled):focus {
+    background: var(--blue-dark);
+    outline: none;
+  }
+  #back-btn {
+    flex-grow: 1;
+    min-width: 180px;
+    max-width: 310px;
+    background: transparent;
+    border: 2px solid var(--gray-medium);
+    color: var(--gray-medium);
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 28px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select:none;
+  }
+  #back-btn:hover,
+  #back-btn:focus {
+    background: var(--gray-medium);
+    color: var(--white);
+    outline: none;
+  }
+
+  #progress-bar-container {
+    width: 100%;
+    height: 16px;
+    background: var(--gray-medium);
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    user-select:none;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: inset 0 1px 2px rgb(255 255 255 / 0.3);
+  }
+  #progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--blue);
+    border-radius: 24px 0 0 24px;
+    transition: width 0.35s ease-out;
+  }
+
+  #circular-progress-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 28px;
+    user-select:none;
+  }
+  svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+  circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+  }
+  circle.bg {
+    stroke: var(--gray-medium);
+  }
+  circle.progress {
+    stroke: var(--blue);
+    transition: stroke-dashoffset 0.35s ease-out;
+    stroke-linejoin: round;
+  }
+  #progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--gray-dark);
+    user-select:none;
+  }
+  body.dark-mode #progress-text {
+    color: var(--gray-light);
+  }
+
+  /* BOTTOM BREADCRUMBS NAVIGATION */
+  nav#bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: var(--nav-height);
+    background: var(--white);
+    border-top: 1px solid var(--gray-medium);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    user-select:none;
+    z-index: 1000;
+    font-size: 14px;
+    color: var(--gray-medium);
+    box-shadow: 0 -1px 4px rgb(0 0 0 / 0.05);
+    transition: background-color 0.4s;
+  }
+  body.dark-mode nav#bottom-nav {
+    background: var(--gray-darker);
+    border-color: var(--gray-dark);
+    box-shadow: 0 -1px 5px #0008;
+    color: var(--gray-light);
+  }
+  #breadcrumbs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    user-select:none;
+    width: 100%;
+  }
+  #breadcrumbs a, #breadcrumbs span {
+    white-space: nowrap;
+    cursor: pointer;
+    user-select:none;
+  }
+  #breadcrumbs a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  #breadcrumbs a:hover, #breadcrumbs a:focus {
+    color: var(--blue-dark);
+    outline: none;
+  }
+  #breadcrumbs span {
+    color: var(--gray-medium);
+    font-weight: 500;
+    user-select:none;
+  }
+  body.dark-mode #breadcrumbs a {
+    color: var(--gray-light);
+  }
+  body.dark-mode #breadcrumbs a:hover, body.dark-mode #breadcrumbs a:focus {
+    color: var(--blue);
+  }
+
+  /* FLOATING QUICK ACTION BUTTON */
+  #bottom-blue-icon {
+    position: fixed;
+    bottom: 72px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select:none;
+    z-index: 1100;
+    box-shadow: 0 8px 16px rgb(0 122 255 / 0.55);
+  }
+  #bottom-blue-icon:hover,
+  #bottom-blue-icon:focus {
+    background: var(--blue-dark);
+    outline: none;
+    box-shadow: 0 12px 20px rgb(0 103 238 / 0.75);
+  }
+  #bottom-blue-icon .material-symbols-outlined {
+    font-size: 28px;
+    color: var(--white);
+  }
+
+  /* QUICK ACTION MENU */
+  #blue-expand-menu {
+    position: fixed;
+    bottom: 140px;
+    right: 24px;
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgb(0 0 0 / 0.15);
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 190px;
+    user-select:none;
+    z-index: 1110;
+  }
+  #blue-expand-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  #blue-expand-menu button {
+    background: transparent;
+    border: none;
+    color: var(--gray-dark);
+    font-size: 1.1rem;
+    padding: 14px 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.3s ease;
+    user-select:none;
+  }
+  #blue-expand-menu button:hover,
+  #blue-expand-menu button:focus {
+    background: var(--gray-light);
+    outline: none;
+  }
+  body.dark-mode #blue-expand-menu button {
+    color: var(--gray-light);
+  }
+  body.dark-mode #blue-expand-menu button:hover,
+  body.dark-mode #blue-expand-menu button:focus {
+    background: var(--gray-darker);
+  }
+  #blue-expand-menu button span.material-symbols-outlined {
+    font-size: 24px;
+    color: var(--blue);
+    user-select:none;
+  }
+
+  /* BLUR ICON FOR FULLSCREEN TOGGLE */
+  #blur-icon {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgb(0 0 0 / 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    user-select:none;
+    touch-action: none;
+    transition: background-color 0.3s ease;
+    z-index: 1200;
+  }
+  #blur-icon:active {
+    cursor: grabbing;
+    background: var(--blue);
+  }
+  #blur-icon .material-symbols-outlined {
+    font-size: 30px;
+    color: var(--blue);
+    user-select:none;
+    pointer-events:none;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    main {
+      margin: calc(var(--nav-height)*2 + 16px) 12px 72px;
+      padding: 20px 12px 36px;
+      min-height: calc(100vh - calc(var(--nav-height)*2 + 96px));
+    }
+    nav#site-nav {
+      gap: 8px;
+      padding: 6px 6px;
+      max-width: 100vw;
+      border-radius: 0;
+      left: 0;
+      transform: none;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.06);
+    }
+    nav#site-nav a {
+      font-size: 0.9rem;
+      padding: 14px 12px 10px;
+      border-radius: 10px;
+    }
+    #circular-progress-wrapper {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 20px;
+    }
+    #progress-text {
+      font-size: 1.4rem;
+    }
+    #bottom-nav {
+      padding: 0 12px;
+      font-size: 13px;
+    }
+    #nav-highlight { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="left-container">
+    <div class="logo-container" tabindex="0" role="button" aria-label="Toggle theme or home" title="Toggle theme or home">
+      <span class="material-symbols-outlined" aria-hidden="true">drive_folder_upload</span>
+      Notes
+    </div>
+  </div>
+  <nav id="site-nav" aria-label="Primary navigation">
+    <a href="#" id="nav-home" class="active" tabindex="0" role="link" aria-current="page">Home</a>
+    <a href="#" id="nav-notes" tabindex="0" role="link">Notes</a>
+    <a href="#" id="nav-download" tabindex="0" role="link">Download</a>
+    <a href="#" id="nav-settings" tabindex="0" role="link">Settings</a>
+    <a href="#" id="nav-info" tabindex="0" role="link">Info</a>
+    <div id="nav-highlight"></div>
+  </nav>
+  <div class="right-buttons" aria-label="Header actions">
+    <button class="btn-icon" aria-label="Open Profile" title="Profile" tabindex="0"><span class="material-symbols-outlined" aria-hidden="true">person</span></button>
+    <button class="btn-icon" aria-label="Open Favorites" title="Favorites" tabindex="0"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></button>
+    <button id="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme" tabindex="0">
+      <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section id="content-page" aria-label="Notes Content"></section>
+
+  <section id="download-page" aria-live="polite" aria-atomic="true" style="display:none">
+    <h2 id="note-title"></h2>
+    <p id="note-description">Tap the button below to download the note.</p>
+    <div id="circular-progress-wrapper" aria-hidden="true">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="bg" cx="50" cy="50" r="45" />
+        <circle class="progress" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="283" />
+      </svg>
+      <div id="progress-text">0%</div>
+    </div>
+    <div id="progress-bar-container" aria-hidden="true" style="display:none;">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="download-progress-info"></div>
+    <div id="download-actions">
+      <button id="download-btn" disabled aria-live="polite" aria-atomic="true" aria-busy="false">Download PDF</button>
+      <button id="back-btn" aria-label="Back to notes list">← Back to Notes</button>
+    </div>
+  </section>
+</main>
+
+<nav id="bottom-nav" aria-label="Breadcrumbs navigation" role="navigation">
+  <div id="breadcrumbs" aria-live="polite" aria-atomic="true"></div>
+</nav>
+
+<div id="bottom-blue-icon" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="blue-expand-menu" aria-label="Open quick menu" title="Open quick menu">
+  <span class="material-symbols-outlined" aria-hidden="true">add</span>
+</div>
+
+<div id="blue-expand-menu" role="menu" aria-label="Quick actions">
+  <button type="button" aria-label="Profile" title="Profile" class="menu-item" role="menuitem">
+    <span class="material-symbols-outlined" aria-hidden="true">person</span> Profile
+  </button>
+  <button type="button" aria-label="Favorites" title="Favorites" class="menu-item" role="menuitem">
+    <span class="material-symbols-outlined" aria-hidden="true">favorite</span> Favorites
+  </button>
+  <button type="button" aria-label="Upload" title="Upload" class="menu-item" role="menuitem">
+    <span class="material-symbols-outlined" aria-hidden="true">cloud_upload</span> Upload
+  </button>
+  <button type="button" aria-label="Settings" title="Settings" class="menu-item" role="menuitem">
+    <span class="material-symbols-outlined" aria-hidden="true">settings</span> Settings
+  </button>
+  <button type="button" aria-label="Help" title="Help" class="menu-item" role="menuitem">
+    <span class="material-symbols-outlined" aria-hidden="true">help</span> Help
+  </button>
+</div>
+
+<div id="blur-icon" tabindex="0" role="button" aria-label="Toggle fullscreen by swipe" aria-describedby="blur-instruction" title="Toggle fullscreen by swipe">
+  <span class="material-symbols-outlined" aria-hidden="true">blur_on</span>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sampleNotesData = {
+    sections: [
+      {
+        name: "Mathematics",
+        notes: [
+          {id: "math1", title: "Algebra Basics", description: "Fundamental concepts of algebra.", pdfLink: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+          {id: "math2", title: "Geometry Essentials", description: "Introduction to geometry.", pdfLink: "https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf"}
+        ]
+      },
+      {
+        name: "Physics",
+        notes: [
+          {id: "phy1", title: "Mechanics", description: "Basics of motion and forces.", pdfLink: "https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf"},
+          {id: "phy2", title: "Thermodynamics", description: "Heat, work, and energy principles.", pdfLink: "#"}
+        ]
+      }
+    ]
+  };
+
+  const contentPage = document.getElementById("content-page");
+  const downloadPage = document.getElementById("download-page");
+  const noteTitleElem = document.getElementById("note-title");
+  const noteDescElem = document.getElementById("note-description");
+  const downloadBtn = document.getElementById("download-btn");
+  const backBtn = document.getElementById("back-btn");
+  const progressBarContainer = document.getElementById("progress-bar-container");
+  const progressBar = document.getElementById("progress-bar");
+  const circularProgress = document.querySelector("circle.progress");
+  const progressText = document.getElementById("progress-text");
+  const downloadProgressInfo = document.getElementById("download-progress-info");
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  const logoContainer = document.querySelector("header .logo-container");
+  const bottomBlueIcon = document.getElementById("bottom-blue-icon");
+  const blueExpandMenu = document.getElementById("blue-expand-menu");
+  const blurIcon = document.getElementById("blur-icon");
+  const navHomeLink = document.getElementById("nav-home");
+  const navNotesLink = document.getElementById("nav-notes");
+  const navDownloadLink = document.getElementById("nav-download");
+  const navSettingsLink = document.getElementById("nav-settings");
+  const navInfoLink = document.getElementById("nav-info");
+  const topNavLinks = [navHomeLink, navNotesLink, navDownloadLink, navSettingsLink, navInfoLink];
+  const navHighlight = document.getElementById("nav-highlight");
+  const breadcrumbsContainer = document.getElementById("breadcrumbs");
+
+  const circleLength = 2 * Math.PI * 45;
+  let fullscreen = false;
+  let downloadInterval = null;
+
+  // Breadcrumb path stack
+  let breadcrumbPath = [{text: "Home", id: "home"}];
+
+  function setCircleProgress(percent) {
+    const offset = circleLength * (1 - percent / 100);
+    circularProgress.style.strokeDasharray = circleLength;
+    circularProgress.style.strokeDashoffset = offset;
+    progressText.textContent = percent.toFixed(0) + "%";
+  }
+
+  function buildNotesSections(sections) {
+    contentPage.innerHTML = '';
+    if (sections.length === 0) {
+      contentPage.innerHTML = '<p style="font-size:1.2rem;color:var(--gray-medium);user-select:none;">No notes available.</p>';
+      return;
+    }
+    sections.forEach(section => {
+      const sectionEl = document.createElement("section");
+      sectionEl.className = "note-section";
+      const heading = document.createElement("h3");
+      heading.textContent = section.name;
+      sectionEl.appendChild(heading);
+
+      const ul = document.createElement("ul");
+      ul.className = "section-notes-list";
+
+      section.notes.forEach(note => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.textContent = note.title;
+        a.href = "#";
+        a.dataset.id = note.id;
+        a.dataset.description = note.description || "";
+        a.dataset.pdflink = note.pdfLink || "#";
+        a.setAttribute('tabindex', '0');
+        a.addEventListener("click", e => {
+          e.preventDefault();
+          openDownloadPage(note);
+          updateBreadcrumb([{text:"Download", id:"download"}, {text: note.title, id: "note-" + note.id}]);
+        });
+        a.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openDownloadPage(note);
+            updateBreadcrumb([{text:"Download", id:"download"}, {text: note.title, id: "note-" + note.id}]);
+          }
+        });
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+
+      sectionEl.appendChild(ul);
+      contentPage.appendChild(sectionEl);
+    });
+  }
+
+  function openDownloadPage(note) {
+    noteTitleElem.textContent = note.title;
+    noteDescElem.textContent = note.description || "Tap the button below to download the note.";
+    downloadProgressInfo.textContent = "";
+    progressBarContainer.style.display = "none";
+    setCircleProgress(0);
+    downloadBtn.disabled = !note.pdfLink || note.pdfLink === "#";
+    downloadBtn.setAttribute("aria-busy", "false");
+    downloadBtn.textContent = "Download PDF";
+    downloadBtn.onclick = null;
+    if (!downloadBtn.disabled) {
+      downloadBtn.onclick = () => startDownloadAnimation(note.pdfLink);
+    }
+    contentPage.style.display = "none";
+    downloadPage.style.display = "";
+    window.scrollTo(0, 0);
+    setActiveTopTab(navDownloadLink);
+  }
+
+  function startDownloadAnimation(pdfLink) {
+    if (downloadInterval) clearInterval(downloadInterval);
+
+    const totalSize = 10 * 1024 * 1024; // 10MB
+    let downloaded = 0;
+    const downloadStartTime = performance.now();
+
+    downloadBtn.disabled = true;
+    downloadBtn.setAttribute("aria-busy", "true");
+    downloadProgressInfo.textContent = "Starting download...";
+    progressBarContainer.style.display = "block";
+
+    let lastPercent = 0;
+    setCircleProgress(0);
+    progressBar.style.width = "0%";
+
+    downloadInterval = setInterval(() => {
+      const now = performance.now();
+      const elapsedSec = Math.max((now - downloadStartTime) / 1000, 0.001);
+
+      const randomBytes = (Math.random() * 700 + 300) * 1024 / 5;
+      downloaded += randomBytes;
+      if (downloaded > totalSize) downloaded = totalSize;
+
+      const progressPercent = (downloaded / totalSize) * 100;
+      if (progressPercent > lastPercent) {
+        lastPercent = progressPercent;
+        setCircleProgress(progressPercent);
+        progressBar.style.width = progressPercent + "%";
+      }
+
+      const speed = downloaded / elapsedSec;
+      const speedKBs = (speed / 1024).toFixed(1);
+      const remaining = totalSize - downloaded;
+      const timeLeft = remaining / speed;
+      const mins = Math.floor(timeLeft / 60);
+      const secs = Math.floor(timeLeft % 60);
+      const timeString = `${mins > 0 ? mins + "m " : ""}${secs}s`;
+
+      downloadProgressInfo.textContent = `Speed: ${speedKBs} KB/s • Time left: ${timeString}`;
+
+      if (progressPercent >= 100) {
+        clearInterval(downloadInterval);
+        downloadBtn.textContent = "Download Complete";
+        downloadBtn.setAttribute("aria-busy", "false");
+        downloadProgressInfo.textContent = `Downloaded 10.0 MB in ${elapsedSec.toFixed(1)} seconds`;
+        setTimeout(() => {
+          if (pdfLink !== "#") window.open(pdfLink, "_blank");
+          resetDownload();
+          contentPage.style.display = "";
+          downloadPage.style.display = "none";
+          setActiveTopTab(navHomeLink);
+          updateBreadcrumb([{text:"Home", id:"home"}]);
+        }, 1400);
+      }
+    }, 200);
+  }
+
+  function resetDownload() {
+    if (downloadInterval) {
+      clearInterval(downloadInterval);
+      downloadInterval = null;
+    }
+    downloadBtn.textContent = "Download PDF";
+    downloadBtn.disabled = false;
+    downloadProgressInfo.textContent = "";
+    progressBar.style.width = "0%";
+    setCircleProgress(0);
+    progressBarContainer.style.display = "none";
+  }
+
+  backBtn.addEventListener("click", () => {
+    resetDownload();
+    downloadPage.style.display = "none";
+    contentPage.style.display = "";
+    window.scrollTo(0, 0);
+    updateBreadcrumb([{text:"Home", id:"home"}]);
+  });
+
+  // Top nav clicks
+  topNavLinks.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      setActiveTopTab(link);
+      resetDownload();
+      downloadPage.style.display = "none";
+      contentPage.style.display = "";
+      window.scrollTo(0, 0);
+
+      if (link === navHomeLink || link === navNotesLink) {
+        buildNotesSections(sampleNotesData.sections);
+        updateBreadcrumb([{text:"Home", id:"home"}]);
+      } else {
+        contentPage.innerHTML = `<p style="font-size:1.25rem; color: var(--gray-medium); user-select:none;">${link.textContent} page content coming soon.</p>`;
+        updateBreadcrumb([{text: link.textContent, id: link.id}]);
+      }
+    });
+  });
+
+  function setActiveTopTab(activeLink) {
+    topNavLinks.forEach(link => {
+      if (link === activeLink) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+        moveNavHighlight(link);
+      } else {
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  // Highlight pill for site nav
+  function moveNavHighlight(activeLink) {
+    if (!activeLink) {
+      navHighlight.style.width = '0';
+      return;
+    }
+    const navRect = activeLink.parentNode.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const left = linkRect.left - navRect.left + activeLink.parentNode.scrollLeft;
+    navHighlight.style.width = `${linkRect.width}px`;
+    navHighlight.style.left = `${left}px`;
+  }
+
+  // Breadcrumbs update
+  function updateBreadcrumb(pathItems) {
+    breadcrumbPath = pathItems;
+    breadcrumbsContainer.innerHTML = '';
+    pathItems.forEach((item, index) => {
+      if (index > 0) {
+        const sep = document.createElement('span');
+        sep.textContent = '›';
+        sep.style.margin = '0 6px';
+        breadcrumbsContainer.appendChild(sep);
+      }
+      if(index === pathItems.length -1){
+        const span = document.createElement('span');
+        span.textContent = item.text;
+        span.setAttribute('aria-current', 'page');
+        breadcrumbsContainer.appendChild(span);
+      } else {
+        const a = document.createElement('a');
+        a.href = "#";
+        a.textContent = item.text;
+        a.dataset.id = item.id;
+        a.tabIndex = 0;
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          breadcrumbNavClick(item.id);
+        });
+        breadcrumbsContainer.appendChild(a);
+      }
+    });
+  }
+
+  function breadcrumbNavClick(id) {
+    resetDownload();
+    if(id === "home"){
+      setActiveTopTab(navHomeLink);
+      buildNotesSections(sampleNotesData.sections);
+      downloadPage.style.display = "none";
+      contentPage.style.display = "";
+      updateBreadcrumb([{text:"Home", id:"home"}]);
+    } else if (id === "notes") {
+      setActiveTopTab(navNotesLink);
+      buildNotesSections(sampleNotesData.sections);
+      downloadPage.style.display = "none";
+      contentPage.style.display = "";
+      updateBreadcrumb([{text:"Home", id:"home"}, {text:"Notes", id:"notes"}]);
+    } else if (id.startsWith("note-")) {
+      // Find note by id
+      const noteId = id.substring(5);
+      for(const sec of sampleNotesData.sections){
+        const found = sec.notes.find(n => n.id === noteId);
+        if(found){
+          openDownloadPage(found);
+          updateBreadcrumb([{text:"Home", id:"home"}, {text:"Download", id:"download"}, {text:found.title, id:id}]);
+          break;
+        }
+      }
+    } else if(id === "download"){
+      setActiveTopTab(navDownloadLink);
+      contentPage.style.display = "none";
+      downloadPage.style.display = "";
+      updateBreadcrumb([{text:"Home", id:"home"}, {text:"Download", id:"download"}]);
+    }
+  }
+
+  // Quick menu open/close
+  function toggleBlueExpandMenu() {
+    if (blueExpandMenu.classList.contains("open")) closeBlueExpandMenu();
+    else openBlueExpandMenu();
+  }
+  function openBlueExpandMenu() {
+    blueExpandMenu.classList.add("open");
+    bottomBlueIcon.setAttribute("aria-expanded", "true");
+    document.addEventListener("click", blurBlueMenu);
+  }
+  function closeBlueExpandMenu() {
+    blueExpandMenu.classList.remove("open");
+    bottomBlueIcon.setAttribute("aria-expanded", "false");
+    document.removeEventListener("click", blurBlueMenu);
+  }
+  function blurBlueMenu(e) {
+    if (!blueExpandMenu.contains(e.target) && !bottomBlueIcon.contains(e.target)) {
+      closeBlueExpandMenu();
+    }
+  }
+  bottomBlueIcon.addEventListener("click", toggleBlueExpandMenu);
+  bottomBlueIcon.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleBlueExpandMenu();
+    }
+  });
+  blueExpandMenu.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      alert(`Clicked ${btn.getAttribute("aria-label")} from quick menu.`);
+      closeBlueExpandMenu();
+    });
+  });
+
+  // Fullscreen swipe toggle (optional)
+  let isTouching = false, startX = 0, startY = 0, touchMoved = false;
+  function toggleFullscreenMode() {
+    fullscreen = !fullscreen;
+    document.body.classList.toggle("fullscreen", fullscreen);
+  }
+  blurIcon.addEventListener("touchstart", e => {
+    if (e.touches.length === 1) {
+      isTouching = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY; touchMoved = false;
+    }
+  }, { passive: true });
+  blurIcon.addEventListener("touchmove", e => {
+    if (!isTouching) return;
+    let diffX = startX - e.touches[0].clientX;
+    let diffY = Math.abs(startY - e.touches[0].clientY);
+    if (diffX > 30 && diffY < 30) touchMoved = true;
+  }, { passive: true });
+  blurIcon.addEventListener("touchend", e => {
+    if (isTouching && touchMoved) toggleFullscreenMode();
+    isTouching = false; touchMoved = false;
+  });
+  let mouseDown = false, mouseStartX = 0, mouseStartY = 0, mouseMoved = false;
+  blurIcon.addEventListener("mousedown", e => {
+    mouseDown = true; mouseStartX = e.clientX; mouseStartY = e.clientY; mouseMoved = false; e.preventDefault();
+  });
+  window.addEventListener("mousemove", e => {
+    if (!mouseDown) return;
+    let diffX = mouseStartX - e.clientX;
+    let diffY = Math.abs(mouseStartY - e.clientY);
+    if (diffX > 30 && diffY < 30) mouseMoved = true;
+  });
+  window.addEventListener("mouseup", e => {
+    if (mouseDown && mouseMoved) toggleFullscreenMode();
+    mouseDown = false; mouseMoved = false;
+  });
+
+  // Theme toggle
+  function updateTheme(mode) {
+    if (mode === "dark") {
+      document.body.classList.add("dark-mode");
+      themeToggleBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>';
+    } else {
+      document.body.classList.remove("dark-mode");
+      themeToggleBtn.innerHTML = '<span class="material-symbols-outlined" aria-hidden="true">light_mode</span>';
+    }
+    localStorage.setItem("theme", mode);
+  }
+  themeToggleBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.contains("dark-mode");
+    updateTheme(isDark ? "light" : "dark");
+  });
+  // Load saved theme
+  const savedTheme = localStorage.getItem("theme") || "light";
+  updateTheme(savedTheme);
+
+  // Logo click resets to home tab and content
+  logoContainer.addEventListener("click", () => {
+    setActiveTopTab(navHomeLink);
+    updateBreadcrumb([{text:"Home", id:"home"}]);
+    buildNotesSections(sampleNotesData.sections);
+    contentPage.style.display = "";
+    downloadPage.style.display = "none";
+  });
+  logoContainer.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      logoContainer.click();
+    }
+  });
+
+  // Initial setup
+  buildNotesSections(sampleNotesData.sections);
+  setActiveTopTab(navHomeLink);
+  updateBreadcrumb(breadcrumbPath);
+  moveNavHighlight(navHomeLink);
+
+  // Move nav highlight function
+  function moveNavHighlight(activeLink) {
+    if (!activeLink) {
+      navHighlight.style.width = '0';
+      return;
+    }
+    const navRect = activeLink.parentNode.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+    const left = linkRect.left - navRect.left + activeLink.parentNode.scrollLeft;
+    navHighlight.style.width = `${linkRect.width}px`;
+    navHighlight.style.left = `${left}px`;
+  }
+});
+</script>
+</body>
+</html>
+
