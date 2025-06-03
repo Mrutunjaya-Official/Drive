@@ -723,25 +723,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const sampleNotesData = {
-    sections: [
-      {
-        name: "Mathematics",
-        notes: [
-          {id: "math1", title: "Algebra Basics", description: "Fundamental concepts of algebra.", pdfLink: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
-          {id: "math2", title: "Geometry Essentials", description: "Introduction to geometry.", pdfLink: "https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf"}
-        ]
-      },
-      {
-        name: "Physics",
-        notes: [
-          {id: "phy1", title: "Mechanics", description: "Basics of motion and forces.", pdfLink: "https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf"},
-          {id: "phy2", title: "Thermodynamics", description: "Heat, work, and energy principles.", pdfLink: "#"}
-        ]
-      }
-    ]
-  };
-
   const contentPage = document.getElementById("content-page");
   const downloadPage = document.getElementById("download-page");
   const noteTitleElem = document.getElementById("note-title");
@@ -774,6 +755,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Breadcrumb path stack
   let breadcrumbPath = [{text: "Home", id: "home"}];
 
+  // Store notes here after fetching
+  let fetchedNotesData = null;
+
   function setCircleProgress(percent) {
     const offset = circleLength * (1 - percent / 100);
     circularProgress.style.strokeDasharray = circleLength;
@@ -783,7 +767,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function buildNotesSections(sections) {
     contentPage.innerHTML = '';
-    if (sections.length === 0) {
+    if (!sections || sections.length === 0) {
       contentPage.innerHTML = '<p style="font-size:1.2rem;color:var(--gray-medium);user-select:none;">No notes available.</p>';
       return;
     }
@@ -925,6 +909,22 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBreadcrumb([{text:"Home", id:"home"}]);
   });
 
+  // Fetch notes from notes.json on server
+  async function fetchNotes() {
+    try {
+      const response = await fetch('notes.json', {cache: "no-store"});
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      fetchedNotesData = data;
+      buildNotesSections(data.sections);
+    } catch (error) {
+      // Show error message and fallback to a friendly message
+      contentPage.innerHTML = '<p style="font-size:1.2rem; color: red; user-select:none;">Failed to load notes. Please try again later.</p>';
+    }
+  }
+
   // Top nav clicks
   topNavLinks.forEach(link => {
     link.addEventListener("click", e => {
@@ -936,7 +936,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo(0, 0);
 
       if (link === navHomeLink || link === navNotesLink) {
-        buildNotesSections(sampleNotesData.sections);
+        fetchNotes();
         updateBreadcrumb([{text:"Home", id:"home"}]);
       } else {
         contentPage.innerHTML = `<p style="font-size:1.25rem; color: var(--gray-medium); user-select:none;">${link.textContent} page content coming soon.</p>`;
@@ -1006,20 +1006,20 @@ document.addEventListener("DOMContentLoaded", () => {
     resetDownload();
     if(id === "home"){
       setActiveTopTab(navHomeLink);
-      buildNotesSections(sampleNotesData.sections);
+      fetchNotes();
       downloadPage.style.display = "none";
       contentPage.style.display = "";
       updateBreadcrumb([{text:"Home", id:"home"}]);
     } else if (id === "notes") {
       setActiveTopTab(navNotesLink);
-      buildNotesSections(sampleNotesData.sections);
+      fetchNotes();
       downloadPage.style.display = "none";
       contentPage.style.display = "";
       updateBreadcrumb([{text:"Home", id:"home"}, {text:"Notes", id:"notes"}]);
     } else if (id.startsWith("note-")) {
-      // Find note by id
+      if (!fetchedNotesData) return;
       const noteId = id.substring(5);
-      for(const sec of sampleNotesData.sections){
+      for(const sec of fetchedNotesData.sections){
         const found = sec.notes.find(n => n.id === noteId);
         if(found){
           openDownloadPage(found);
@@ -1129,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logoContainer.addEventListener("click", () => {
     setActiveTopTab(navHomeLink);
     updateBreadcrumb([{text:"Home", id:"home"}]);
-    buildNotesSections(sampleNotesData.sections);
+    fetchNotes();
     contentPage.style.display = "";
     downloadPage.style.display = "none";
   });
@@ -1141,23 +1141,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Initial setup
-  buildNotesSections(sampleNotesData.sections);
+  fetchNotes();
   setActiveTopTab(navHomeLink);
   updateBreadcrumb(breadcrumbPath);
   moveNavHighlight(navHomeLink);
-
-  // Move nav highlight function
-  function moveNavHighlight(activeLink) {
-    if (!activeLink) {
-      navHighlight.style.width = '0';
-      return;
-    }
-    const navRect = activeLink.parentNode.getBoundingClientRect();
-    const linkRect = activeLink.getBoundingClientRect();
-    const left = linkRect.left - navRect.left + activeLink.parentNode.scrollLeft;
-    navHighlight.style.width = `${linkRect.width}px`;
-    navHighlight.style.left = `${left}px`;
-  }
 });
 </script>
 </body>
